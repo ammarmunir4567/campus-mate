@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:newapp/views/SGPA.dart';
 import '../constants/routes.dart';
 import '../enums/menu_action.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:newapp/utilities/dialogs/logout_dialog.dart';
 
 class MainMenu extends StatelessWidget {
@@ -59,8 +59,8 @@ class MainMenu extends StatelessWidget {
           GestureDetector(
             onTap: () {
               // Navigator.pushNamed(context, sgpaRoute);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const MyAppSGPA()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => const SGPA()));
             },
             child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -108,9 +108,9 @@ class MainMenu extends StatelessWidget {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, resourceRoute);
+          TextButton(
+            onPressed: () {
+              _launchURL;
             },
             child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -165,152 +165,13 @@ class MainMenu extends StatelessWidget {
   }
 }
 
-class GpaPage extends StatelessWidget {
-  const GpaPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('GPA Calculator'),
-      ),
-      body: const Center(
-        child: Text('GPA Calculator Page'),
-      ),
-    );
-  }
-}
-
-class SgpaPage extends StatelessWidget {
-  const SgpaPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('SGPA Calculator'),
-      ),
-      body: const Center(
-        child: Text('SGPA Calculator Page'),
-      ),
-    );
-  }
-}
-
-class TimetablePage extends StatelessWidget {
-  const TimetablePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Timetable'),
-      ),
-      body: const Center(
-        child: Text('Timetable Page'),
-      ),
-    );
-  }
-}
-
-class MapsPage extends StatelessWidget {
-  const MapsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Maps'),
-      ),
-      body: const Center(
-        child: Text('Maps Page'),
-      ),
-    );
-  }
-}
-
-class ResourcesPage extends StatelessWidget {
-  const ResourcesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Resources'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/resources/library');
-              },
-              child: const Text('Library'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/resources/computer-lab');
-              },
-              child: const Text('Computer Lab'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/resources/sports-facilities');
-              },
-              child: const Text('Sports Facilities'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class LibraryPage extends StatelessWidget {
-  const LibraryPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Library'),
-      ),
-      body: const Center(
-        child: Text('Library Page'),
-      ),
-    );
-  }
-}
-
-class ComputerLabPage extends StatelessWidget {
-  const ComputerLabPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Computer Lab'),
-      ),
-      body: const Center(
-        child: Text('Computer Lab Page'),
-      ),
-    );
-  }
-}
-
-class SportsFacilitiesPage extends StatelessWidget {
-  const SportsFacilitiesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sports Facilities'),
-      ),
-      body: const Center(
-        child: Text('Sports Facilities Page'),
-      ),
-    );
+_launchURL() async {
+  const url =
+      'https://drive.google.com/drive/u/0/folders/1-xpPH-aPjhV2BLGp2pdk1inPcwiEpM-c';
+  final uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri);
+  } else {
+    throw 'Could not launch $url';
   }
 }
