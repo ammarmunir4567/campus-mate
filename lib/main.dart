@@ -3,6 +3,7 @@ import 'package:newapp/views/GPA.dart';
 import 'package:newapp/views/SGPA.dart';
 import 'package:newapp/views/Timetable.dart';
 import 'package:newapp/views/main_menu.dart';
+import 'package:newapp/views/map.dart';
 import '/constants/routes.dart';
 import '/services/auth/auth_service.dart';
 import '/views/login_view.dart';
@@ -20,6 +21,7 @@ void main() {
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(),
+      debugShowCheckedModeBanner: false,
       routes: {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
@@ -28,9 +30,9 @@ void main() {
         createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
         mainMenuRoute: (context) => const MainMenu(),
         sgpaRoute: (context) => const SGPA(),
-        gpaRoute: (context) => const CGPA(),
+        gpaRoute: (context) => CGPA(),
         timeTableRoute: (context) => const ExcelScreen(),
-        //resourceRoute: (context) => const resource(),
+        mapsRoute: (context) => DepartmentScreen(),
       },
     ),
   );

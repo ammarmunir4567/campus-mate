@@ -196,8 +196,6 @@
 //   }
 // }
 
-import 'package:flutter/material.dart';
-
 // class Semester {
 //   String name;
 //   double creditHours;
@@ -392,6 +390,11 @@ import 'package:flutter/material.dart';
 //   }
 // }
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../utilities/format.dart';
+
 class Course {
   double creditHours;
   double gpa;
@@ -400,8 +403,6 @@ class Course {
 }
 
 class CGPA extends StatefulWidget {
-  const CGPA({super.key});
-
   @override
   _CGPAState createState() => _CGPAState();
 }
@@ -426,10 +427,8 @@ class _CGPAState extends State<CGPA> {
     double totalGradePoints = 0.0;
 
     for (int i = 0; i < courses.length; i++) {
-      if (courses[i].creditHours != 0.0 && courses[i].gpa != 0.0) {
-        totalCreditHours += courses[i].creditHours;
-        totalGradePoints += courses[i].creditHours * courses[i].gpa;
-      }
+      totalCreditHours += courses[i].creditHours;
+      totalGradePoints += courses[i].creditHours * courses[i].gpa;
     }
 
     if (totalCreditHours > 0.0) {
@@ -447,235 +446,277 @@ class _CGPAState extends State<CGPA> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('CGPA Calculator'),
+          title: Text('CGPA Calculator'),
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 16.0),
-                const Text(
+                SizedBox(height: 16.0),
+                Text(
                   'Semester 1',
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[0].creditHours = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'Credit Hours',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[0].gpa = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    DecimalTextInputFormatter(),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'GPA',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 16.0),
-                const Text(
+                SizedBox(height: 16.0),
+                Text(
                   'Semester 2',
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[1].creditHours = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'Credit Hours',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[1].gpa = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    DecimalTextInputFormatter(),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'GPA',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 16.0),
-                const Text(
+                SizedBox(height: 16.0),
+                Text(
                   'Semester 3',
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[2].creditHours = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'Credit Hours',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[2].gpa = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    DecimalTextInputFormatter(),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'GPA',
                     border: OutlineInputBorder(),
                   ),
                 ),
 
 //sem 4
-                const SizedBox(height: 16.0),
-                const Text(
+                SizedBox(height: 16.0),
+                Text(
                   'Semester 4',
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[3].creditHours = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'Credit Hours',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[3].gpa = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    DecimalTextInputFormatter(),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'GPA',
                     border: OutlineInputBorder(),
                   ),
                 ),
 
 //sem5
-                const SizedBox(height: 16.0),
-                const Text(
+                SizedBox(height: 16.0),
+                Text(
                   'Semester 5',
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[4].creditHours = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'Credit Hours',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[4].gpa = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    DecimalTextInputFormatter(),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'GPA',
                     border: OutlineInputBorder(),
                   ),
                 ),
 
 //sem6
-                const SizedBox(height: 16.0),
-                const Text(
-                  'Semester 3',
+                SizedBox(height: 16.0),
+                Text(
+                  'Semester 6',
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[5].creditHours = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'Credit Hours',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[5].gpa = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    DecimalTextInputFormatter(),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'GPA',
                     border: OutlineInputBorder(),
                   ),
                 ),
 
                 //sem7
-                const SizedBox(height: 16.0),
-                const Text(
-                  'Semester 3',
+                SizedBox(height: 16.0),
+                Text(
+                  'Semester 7',
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[6].creditHours = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'Credit Hours',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[6].gpa = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    DecimalTextInputFormatter(),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'GPA',
                     border: OutlineInputBorder(),
                   ),
@@ -684,47 +725,55 @@ class _CGPAState extends State<CGPA> {
                 //sem8
                 const SizedBox(height: 16.0),
                 const Text(
-                  'Semester 3',
+                  'Semester 8',
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[7].creditHours = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
+
+                  // keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
                     labelText: 'Credit Hours',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 8.0),
+                SizedBox(height: 8.0),
                 TextField(
                   onChanged: (value) {
                     setState(() {
                       courses[7].gpa = double.parse(value);
                     });
                   },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    DecimalTextInputFormatter(),
+                  ],
+                  decoration: InputDecoration(
                     labelText: 'GPA',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 16.0),
+                SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
                       ans = calculateGPA();
                     });
                   },
-                  child: const Text('Calculate GPA'),
+                  child: Text('Calculate GPA'),
                 ),
                 Text(
                   'GPA: $ans',
-                  style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
               ],
             ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utilities/format.dart';
+
 class Course {
   String name;
   String grade;
@@ -47,12 +49,17 @@ class _SGPAState extends State<SGPA> {
     double totalPoints = 0.0;
 
     for (int i = 0; i < courses.length; i++) {
-      if (courses[i].name != '' &&
-          courses[i].grade != 'Select' &&
-          courses[i].creditHours != 0.0) {
+      // if (courses[i].name != '' &&
+      //     courses[i].grade != 'Select' &&
+      //     courses[i].creditHours != 0.0)
+      {
         totalCreditHours += courses[i].creditHours;
 
         switch (courses[i].grade) {
+          case 'Select':
+            //courses[i].creditHours = 0.0;
+            totalPoints += courses[i].creditHours * 0.0;
+            break;
           case 'A+':
             totalPoints += courses[i].creditHours * 4.0;
             break;
@@ -105,7 +112,7 @@ class _SGPAState extends State<SGPA> {
   }
 
   final Map<String, double> _gradePoints = {
-    'A+': 4.3,
+    'A+': 4.0,
     'A': 4.0,
     'A-': 3.7,
     'B+': 3.3,
@@ -117,6 +124,7 @@ class _SGPAState extends State<SGPA> {
     'D+': 1.3,
     'D': 1.0,
     'F': 0.0,
+    'Select': 0.0
   };
 
   @override
@@ -174,7 +182,10 @@ class _SGPAState extends State<SGPA> {
                     courses[0].creditHours = double.parse(value);
                   });
                 },
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  DecimalTextInputFormatter(),
+                ],
                 decoration: const InputDecoration(
                   labelText: 'Credit Hours',
                   border: OutlineInputBorder(),
@@ -223,7 +234,10 @@ class _SGPAState extends State<SGPA> {
                     courses[1].creditHours = double.parse(value);
                   });
                 },
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  DecimalTextInputFormatter(),
+                ],
                 decoration: const InputDecoration(
                   labelText: 'Credit Hours',
                   border: OutlineInputBorder(),
@@ -272,7 +286,10 @@ class _SGPAState extends State<SGPA> {
                     courses[2].creditHours = double.parse(value);
                   });
                 },
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  DecimalTextInputFormatter(),
+                ],
                 decoration: const InputDecoration(
                   labelText: 'Credit Hours',
                   border: OutlineInputBorder(),
@@ -321,7 +338,10 @@ class _SGPAState extends State<SGPA> {
                     courses[3].creditHours = double.parse(value);
                   });
                 },
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  DecimalTextInputFormatter(),
+                ],
                 decoration: const InputDecoration(
                   labelText: 'Credit Hours',
                   border: OutlineInputBorder(),
@@ -370,7 +390,10 @@ class _SGPAState extends State<SGPA> {
                     courses[4].creditHours = double.parse(value);
                   });
                 },
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  DecimalTextInputFormatter(),
+                ],
                 decoration: const InputDecoration(
                   labelText: 'Credit Hours',
                   border: OutlineInputBorder(),
@@ -397,7 +420,8 @@ class _SGPAState extends State<SGPA> {
               const SizedBox(height: 16.0),
               Text(
                 'SGPA: $sgpa',
-                style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
             ],
           ),

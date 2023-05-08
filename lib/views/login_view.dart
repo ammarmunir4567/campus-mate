@@ -37,8 +37,8 @@ class _LoginViewState extends State<LoginView> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color.fromRGBO(43, 63, 128, 1),
                 Color.fromRGBO(94, 115, 255, 1),
+                Color.fromRGBO(93, 41, 142, 1),
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -48,16 +48,27 @@ class _LoginViewState extends State<LoginView> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(height: 80),
-              const Text(
-                'Campus Mate',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
+              const SizedBox(height: 5),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'img/logo.png',
+                    height: 150,
+                    width: 150,
+                  ),
+                  const SizedBox(width: 5),
+                  const Text(
+                    'Campus Mate',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 35),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
@@ -87,7 +98,7 @@ class _LoginViewState extends State<LoginView> {
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
@@ -117,6 +128,7 @@ class _LoginViewState extends State<LoginView> {
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
+              const SizedBox(height: 20),
               TextButton(
                 onPressed: () async {
                   final email = _email.text;
@@ -157,8 +169,12 @@ class _LoginViewState extends State<LoginView> {
                     );
                   }
                 },
+                style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Color.fromARGB(255, 96, 189, 14)),
                 child: const Text('Login'),
               ),
+              const SizedBox(height: 10),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(
@@ -166,6 +182,9 @@ class _LoginViewState extends State<LoginView> {
                     (route) => false,
                   );
                 },
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                ),
                 child: const Text('Not registered yet? Register here!'),
               )
             ],
